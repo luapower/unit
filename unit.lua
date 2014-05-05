@@ -1,8 +1,8 @@
-glue = require'glue'
-local pf = require'pp_format'
+local glue = require'glue'
+local pp = require'pp'
 
 local function tostr(s)
-	return pf.pformat(tostring(s))
+	return pp.format(tostring(s))
 end
 
 function _test(t1, t2, prefix, level)
