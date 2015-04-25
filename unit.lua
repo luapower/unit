@@ -1,11 +1,24 @@
 local glue = require'glue'
 local pp = require'pp'
 
+local function declare(global)
+	local mt = getmetatable(_G)
+	local decl = mt and mt.__declared
+	if decl then decl[global] = true end
+end
+
+declare'test'
+declare'testmatch'
+declare'ptest'
+declare'timediff'
+declare'fps'
+declare'dir'
+
 local function tostr(s)
 	return pp.format(tostring(s))
 end
 
-function _test(t1, t2, prefix, level)
+local function _test(t1, t2, prefix, level)
 	if type(t1)=='table' and type(t2)=='table' then
 		--for k,v in pairs(t1) do print('>t1',k,v) end
 		--for k,v in pairs(t2) do print('>t2',k,v) end
