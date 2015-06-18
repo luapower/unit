@@ -51,19 +51,14 @@ function ptest(t1,t2)
 	test(t1,t2,nil,3)
 end
 
-local ffi = require'ffi'
-ffi.cdef'uint32_t GetTickCount();'
-
+local time
 local last_time
 function timediff()
-	local time = ffi.C.GetTickCount()
-	local d = last_time and (time - last_time)/1000 or 0
-	last_time = time
-	return d
-end
-
-function fps(n)
-	return last_time and (n / (ffi.C.GetTickCount() - last_time) * 1000) or 0
+    time = time or require'time'
+    local time = time.clock()
+    local d = last_time and (time - last_time) or 0
+    last_time = time
+    return d
 end
 
 function dir(d)
